@@ -5,9 +5,9 @@ import { Input } from "./_components/ui/input";
 import Image from "next/image";
 import { Card, CardContent } from "./_components/ui/card";
 import { db } from "./_lib/prisma";
-import { Badge } from "./_components/ui/badge";
-import { Avatar, AvatarImage } from "./_components/ui/avatar";
 import BarbershopItem from "./_components/barbershop-item";
+import { quickSearchOptions } from "./_constants/search";
+import BookingItem from "./_components/booking-item";
 
 const Home = async () => {
   // chamar meu banco de dados
@@ -36,25 +36,17 @@ const Home = async () => {
 
         {/** BUSCA RÁPIDA */}
         <div className="flex gap-3 mt-6 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
-          <Button className="gap-2" variant="secondary">
-            <Image src="/cabelo.svg" width={16} height={16} alt="Cabelo" />
-            Cabelo
-          </Button>
-
-          <Button className="gap-2" variant="secondary">
-            <Image src="/barba.svg" width={16} height={16} alt="Barba" />
-            Barba
-          </Button>
-
-          <Button className="gap-2" variant="secondary">
-            <Image
-              src="/acabamento.svg"
-              width={16}
-              height={16}
-              alt="Acabamento"
-            />
-            Acabamento
-          </Button>
+          {quickSearchOptions.map((option) => (
+            <Button className="gap-2" variant="secondary" key={option.title}>
+              <Image
+                src={option.imageUrl}
+                width={16}
+                height={16}
+                alt={option.title}
+              />
+              {option.title}
+            </Button>
+          ))}
         </div>
 
         {/** BANNER */}
@@ -67,31 +59,7 @@ const Home = async () => {
           />
         </div>
         {/** AGENDAMENTO */}
-        <h2 className="text-xs font-bold uppercase text-gray-400 mb-3 mt-6">
-          Agendamentos
-        </h2>
-        <Card>
-          <CardContent className="flex justify-between p-0">
-            {/* ESQUERDA*/}
-            <div className="flex flex-col gap-2 py-5 pl-5">
-              <Badge className="w-fit">confirmado</Badge>
-              <h3 className="font-semibold">Corte de Cabelo</h3>
-              <div className="flex items-center gap-2">
-                <Avatar className="h-6 w-6">
-                  <AvatarImage src="https://utfs.io/f/5788be0e-2307-4bb4-b603-d9dd237950a2-17l.png" />
-                </Avatar>
-                <p className="text-sm">Barbearia FSW</p>
-              </div>
-            </div>
-
-            {/* DIREITA*/}
-            <div className=" flex flex-col items-center justify-center px-6 border-l-2 border-solid">
-              <p className="text-sm">Agosto</p>
-              <p className="text-2xl">06</p>
-              <p className="text-sm">20:00</p>
-            </div>
-          </CardContent>
-        </Card>
+        <BookingItem />
 
         <h2 className="text-xs font-bold uppercase text-gray-400 mb-3 mt-6">
           Recomendados
