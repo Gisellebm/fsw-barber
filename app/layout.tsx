@@ -1,4 +1,6 @@
+import { Toaster } from "sonner";
 import "./globals.css";
+import Footer from "./_components/footer";
 
 export const metadata = {
   title: "Next.js",
@@ -13,6 +15,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body>{children}</body>
+      <Toaster />
+
+      <Footer />
     </html>
   );
 }
